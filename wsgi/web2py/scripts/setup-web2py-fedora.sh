@@ -69,13 +69,13 @@ if [ ! ${version_major} -ge 2 -o ! ${version_minor} -ge 5 ]; then
     # http://markkoberlein.com/getting-python-26-with-django-11-together-on
 
     # Check for earlier Python 2.6 install
-    if [ -e /opt/python2.6 ]; then
+    if [ -e /opt/python2.7 ]; then
         # Is Python already installed?
-        RETV=`/opt/python2.6/bin/python -V > /dev/null 2>&1; echo $?`
+        RETV=`/opt/python2.7/bin/python -V > /dev/null 2>&1; echo $?`
         if [ ${RETV} -eq 0 ]; then
             python_installed='True'
         else
-            mv /opt/python2.6 /opt/python2.6-old
+            mv /opt/python2.7 /opt/python2.7-old
         fi
     fi
 
@@ -84,13 +84,13 @@ if [ ! ${version_major} -ge 2 -o ! ${version_minor} -ge 5 ]; then
         # Install requirements for the Python build
         yum install sqlite-devel zlib-devel
 
-        mkdir -p /opt/python2.6
+        mkdir -p /opt/python2.7
 
         # Download and install
         wget http://www.python.org/ftp/python/2.6.4/Python-2.6.4.tgz
         tar -xzf Python-2.6.4.tgz
         cd Python-2.6.4
-        ./configure --prefix=/opt/python2.6 --with-threads --enable-shared --with-zlib=/usr/include
+        ./configure --prefix=/opt/python2.7 --with-threads --enable-shared --with-zlib=/usr/include
         make && make install
 
         cd /tmp/setup-web2py
@@ -98,11 +98,11 @@ if [ ! ${version_major} -ge 2 -o ! ${version_minor} -ge 5 ]; then
 
     # Create links for Python 2.6
     # even if it was previously installed just to be sure
-    ln -s /opt/python2.6/lib/libpython2.6.so /usr/lib
-    ln -s /opt/python2.6/lib/libpython2.6.so.1.0 /usr/lib
-    ln -s /opt/python2.6/bin/python /usr/local/bin/python
-    ln -s /opt/python2.6/bin/python /usr/bin/python2.6
-    ln -s /opt/python2.6/lib/python2.6.so /opt/python2.6/lib/python2.6/config/
+    ln -s /opt/python2.7/lib/libpython2.7.so /usr/lib
+    ln -s /opt/python2.7/lib/libpython2.7.so.1.0 /usr/lib
+    ln -s /opt/python2.7/bin/python /usr/local/bin/python
+    ln -s /opt/python2.7/bin/python /usr/bin/python2.7
+    ln -s /opt/python2.7/lib/python2.7.so /opt/python2.7/lib/python2.7/config/
 
     # Update linker for new libraries
     /sbin/ldconfig
@@ -166,8 +166,8 @@ chown -R apache:apache web2py
 ###
 
 # Set context for Python libraries if Python 2.6 installed
-if [ -d /opt/python2.6 ]; then
-    cd /opt/python2.6
+if [ -d /opt/python2.7 ]; then
+    cd /opt/python2.7
     chcon -R -t lib_t lib/
 fi
 

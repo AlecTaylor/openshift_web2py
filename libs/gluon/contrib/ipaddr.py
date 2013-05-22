@@ -421,7 +421,7 @@ CollapseAddrList = collapse_address_list
 # b'12::' (the IPv4 address 49.50.58.58) and '12::' (an IPv6 address).
 try:
     _compat_has_real_bytes = bytes is not str
-except NameError: # <Python2.6
+except NameError: # <python2.7
     _compat_has_real_bytes = False
 
 def get_mixed_type_key(obj):

@@ -44,7 +44,7 @@ remove_build_files = Config.getboolean("Setup", "remove_build_files")
 # Python base version
 python_version = sys.version[:3]
 
-# List of modules deprecated in python2.6 that are in the above set
+# List of modules deprecated in python2.7 that are in the above set
 py26_deprecated = ['mhlib', 'multifile', 'mimify', 'sets', 'MimeWriter']
 
 if python_version == '2.6':
